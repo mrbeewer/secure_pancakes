@@ -15,8 +15,25 @@ require('./db/database');
 
 var routes = require('./routes/index');
 var pancakes = require('./routes/pancakes');
+var accounts = require('./routes/accounts');
 
 var app = express();
+// instantly enable sessions
+app.use(require('express-session')({
+  secret: 'something secret', //kind of like your own salt
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// done enabling sessions
+
+// configure passport
+var Account = require('./models/Account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+// end configuration for passport
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/api', pancakes);
+app.use('/account', accounts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
