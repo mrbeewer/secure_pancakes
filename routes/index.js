@@ -10,6 +10,7 @@ var siteData = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  siteData.user = req.user;
   res.render('index', siteData);
 });
 
