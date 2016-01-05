@@ -8,6 +8,15 @@
     <script type='text/javascript' src='/javascripts/backbone.js'></script>
   </head>
   <body>
+
+    {{#if user}}
+      Welcome, {{user.username}}!
+    {{else}}
+      Hey! You should <a href="/account/login">Login</a> or <a href="/account/register">Register</a>
+    {{/if}}
+
+    <hr>
+
     {{{body}}}
   </body>
 </html>
