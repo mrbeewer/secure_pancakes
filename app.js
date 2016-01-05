@@ -4,6 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+// declare passport
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+// var FacebookStrategy = require('passport-facebook').Strategy;
+// but before the db is loaded
+
 require('./db/database');
 
 var routes = require('./routes/index');
